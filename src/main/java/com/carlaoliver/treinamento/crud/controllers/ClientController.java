@@ -1,12 +1,11 @@
 package com.carlaoliver.treinamento.crud.controllers;
 
 import com.carlaoliver.treinamento.crud.entities.Client;
-import com.carlaoliver.treinamento.crud.repository.ClientRepository;
+import com.carlaoliver.treinamento.crud.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/clients")
@@ -29,6 +28,11 @@ public class ClientController {
     @PostMapping
     public Client saveClient(@RequestBody Client client) {
         return clientRepository.save(client);
+    }
+
+    @DeleteMapping
+    public void deletClient(@RequestBody Client client) {
+       clientRepository.delete(client);
     }
 
 
