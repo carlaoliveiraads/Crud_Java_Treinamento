@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/clients")
@@ -26,14 +27,21 @@ public class ClientController {
     }
 
     @PostMapping
-    public Client saveClient(@RequestBody Client client) {
+    public List<Client> saveClient(@RequestBody List<Client> client) {
+        List<Client> listClients = client.stream()
+                .map(item -> clientRepository.save(item))
+                .collect(Collectors.toList());
+        return listClients;
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletClient(@PathVariable(value = "id") Integer id) {
+        clientRepository.deleteById(id);
+    }
+
+    @PutMapping
+    public Client updateClient(@RequestBody Client client) {
         return clientRepository.save(client);
     }
-
-    @DeleteMapping
-    public void deletClient(@RequestBody Client client) {
-       clientRepository.delete(client);
-    }
-
 
 }
