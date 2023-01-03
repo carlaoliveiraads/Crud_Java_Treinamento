@@ -38,9 +38,9 @@ public class AccountController {
     }
 
 
-    @PutMapping
-    public Account updateAccount(@RequestBody Account account) {
-        return accountService.save(account);
+    @PutMapping("/{id}")
+    public Account updateAccount(@PathVariable(value = "id") Integer id,@RequestBody Account account) throws Exception {
+        return accountService.save(id, account);
     }
 
 
